@@ -1,33 +1,25 @@
 <?php
 /**
- * @version		    $Id: 
- * @package		    jUpgrade
- * @subpackage	  jUpgradeCli
- * @copyright			CopyRight 2011 Matware All rights reserved.
- * @author				Matias Aguirre
- * @email   			maguirre@matware.com.ar
- * @link					http://www.matware.com.ar/
- * @license				GNU/GPL http://www.gnu.org/licenses/gpl-3.0-standalone.html
+ * @version       $Id: 
+ * @package       Joomla.AssetFix
+ * @copyright     Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @author        Matias Aguirre
+ * @email         maguirre@matware.com.ar
+ * @link          http://www.matware.com.ar/
+ * @license       GNU General Public License version 2 or later; see LICENSE
  */
 
 // Prevent direct access to this file outside of a calling application.
 defined('_JEXEC') or die;
 
 /**
-* jUpgradeCli configuration class.
+* AssetFix configuration class.
 *
-* @package jUpgrade
+* @package AssetFix
 * @since 2.5
 */
 final class JConfig
 {
-	/**
-	* Cli flag
-	*
-	* @var string
-	* @since 2.5
-	*/
-	public $cli = 1;
 	/**
 	* The database driver.
 	*

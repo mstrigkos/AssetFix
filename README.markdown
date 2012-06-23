@@ -2,7 +2,7 @@ AssetFix
 ========
 
 AssetFix is a CLI script that rewrite your #__assets table preventing errors and slow speed of load caused by bad migrations or 
-end user manual manipulation of the tables. THis scripts try to offer a way to solve this.
+end user manual manipulation of the tables. This scripts try to offer a way to solve that problem.
 
 Installation
 ------------
