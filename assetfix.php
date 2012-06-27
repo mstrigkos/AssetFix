@@ -24,13 +24,13 @@ define('JPATH_LIBRARIES', dirname(dirname(__FILE__)).'/joomla-platform'   );
 require JPATH_LIBRARIES . '/libraries/import.php';
 
 // Import the JApplicationWeb class from the platform.
-jimport('joomla.application.web');
+jimport('joomla.application.cli');
 
 /**
  * This class checks some common situations that occur when the asset table is corrupted.
  */
 // Instantiate the application.
-class AssetFix extends JApplicationWeb
+class AssetFix extends JApplicationCli
 {
 	/**
 	 * Overrides the parent doExecute method to run the web application.
@@ -332,9 +332,10 @@ class AssetFix extends JApplicationWeb
 			// Setting the parent
 			$parent = 0;
 			if ($category->parent_id !== false) {
-
 				if ($category->parent_id == 1) {
-					$parent = $this->getRootId('$category->extension');
+					$parentAsset = JTable::getInstance('asset');
+					$parentAsset->loadByName($category->extension);
+					$parent = $parentAsset->id;
 				} else if ($category->parent_id > 1) {
 					// Getting the correct parent
 					$query = $this->dbo->getQuery(true);
@@ -395,7 +396,9 @@ class AssetFix extends JApplicationWeb
 			if ($article->catid !== false) {
 
 				if ($article->catid == 1) {
-					$parent = $this->getRootId('com_content');
+					$parentAsset = JTable::getInstance('asset');
+					$parentAsset->loadByName('com_content');
+					$parent = $parentAsset->id;
 				} else if ($article->catid > 1) {
 					// Getting the correct parent
 					$query = $this->dbo->getQuery(true);
@@ -424,23 +427,6 @@ class AssetFix extends JApplicationWeb
 
 	} // end method
 
-	protected function getRootId($extension = false)
-	{
-
-		if ($extension !== false) {
-			// Getting the correct parent
-			$query = $this->dbo->getQuery(true);
-			$query->select('id');
-			$query->from('#__assets_backup');
-			$query->where("name = '{$extension}'");
-			$this->dbo->setQuery($query);
-			$root = $this->dbo->loadResult();
-		}
-
-		return $root;
-	} // end method
-
-
 } // end class
 
-JWeb::getInstance('AssetFix')->execute();
+JCli::getInstance('AssetFix')->execute();
