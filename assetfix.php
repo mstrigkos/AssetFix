@@ -18,7 +18,7 @@ define('_JEXEC', 1);
 define('JPATH_BASE', dirname(__FILE__));
 define('JPATH_SITE', JPATH_BASE);
 define('JPATH_CONFIGURATION',JPATH_BASE);
-define('JPATH_LIBRARIES', dirname(dirname(dirname(__FILE__))).'/joomla-platform'   );
+define('JPATH_LIBRARIES', dirname(dirname(__FILE__)).'/joomla-platform'   );
 
 // Bootstrap the application.
 require JPATH_LIBRARIES . '/libraries/import.php';
@@ -306,7 +306,6 @@ class AssetFix extends JApplicationWeb
 		$query->select('*');
 		$query->from('#__categories');
 		$query->where('id != 1');
-		$query->where("alias != 'uncategorised'");
 		$query->order('parent_id');
 		$this->dbo->setQuery($query);
 		$categories = $this->dbo->loadObjectList();
