@@ -1,0 +1,134 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Musement API",
+    "description" : "Musement API",
+    "version" : "3.5.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/michael.strigkos/Musement/3.5.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "paths" : {
+    "/cities/{cityId}/weather" : {
+      "post" : {
+        "tags" : [ "city", "weather" ],
+        "summary" : "Set Weather Forecast for a specific City",
+        "operationId" : "PostCitiesCityIdWeather",
+        "parameters" : [ {
+          "name" : "X-Musement-Version",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "cityId",
+          "in" : "path",
+          "description" : "City identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The body consists of a JSON schema for the weather condition and the day in subject",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Weather"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Returned when successful"
+          },
+          "503" : {
+            "description" : "Returned when the service is unavailable"
+          },
+          "400" : {
+            "description" : "Returned if sent data contains errors"
+          }
+        }
+      }
+    },
+    "/cities/{cityId}/weather/{day}" : {
+      "get" : {
+        "tags" : [ "city", "weather" ],
+        "summary" : "Read weather forecast for a specific city and day",
+        "operationId" : "GetCitiesCityWeatherDay",
+        "parameters" : [ {
+          "name" : "X-Musement-Version",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "cityId",
+          "in" : "path",
+          "description" : "City identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "day",
+          "in" : "path",
+          "description" : "Day",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returned when successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Weather"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Returned when resource is not found"
+          },
+          "422" : {
+            "description" : "Returned when there are problems fetching dates due to technical error"
+          },
+          "503" : {
+            "description" : "Returned when the service is unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Weather" : {
+        "type" : "object",
+        "properties" : {
+          "cityId" : {
+            "type" : "integer",
+            "example" : 1233
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date",
+            "example" : "2021-11-15"
+          },
+          "condition" : {
+            "type" : "string",
+            "example" : "Sunny"
+          }
+        }
+      }
+    }
+  }
+}
